@@ -1,1 +1,23 @@
 Сохраните сюда результат вывода:
++-------+--------------------+----------------+----------+
+|book_id|               title|          author|Library_id|
++-------+--------------------+----------------+----------+
+|    382|Nineteen Eighty-Four|   George Orwell|         2|
+|    322|Harry Potter and ...|   J. K. Rowling|         1|
+|    322|Harry Potter and ...|   J. K. Rowling|         1|
+|    159|           Jane Eyre|Charlotte Brontë|         1|
++-------+--------------------+----------------+----------+
+
+== Physical Plan ==
+InMemoryTableScan [book_id#2L, title#0, author#1, Library_id#7]
+   +- InMemoryRelation [book_id#2L, title#0, author#1, Library_id#7], StorageLevel(disk, memory, deserialized, 1 replicas)
+         +- *(5) Project [book_id#2L, title#0, author#1, Library_id#7]
+            +- *(5) SortMergeJoin [book_id#2L], [book_id#6L], Inner
+               :- *(2) Sort [book_id#2L ASC NULLS FIRST], false, 0
+               :  +- Exchange hashpartitioning(book_id#2L, 200), ENSURE_REQUIREMENTS, [plan_id=31]
+               :     +- *(1) Filter isnotnull(book_id#2L)
+               :        +- *(1) Scan ExistingRDD[title#0,author#1,book_id#2L]
+               +- *(4) Sort [book_id#6L ASC NULLS FIRST], false, 0
+                  +- Exchange hashpartitioning(book_id#6L, 200), ENSURE_REQUIREMENTS, [plan_id=37]
+                     +- *(3) Filter isnotnull(book_id#6L)
+                        +- *(3) Scan ExistingRDD[book_id#6L,Library_id#7]

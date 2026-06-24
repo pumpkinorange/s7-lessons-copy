@@ -1,1 +1,13 @@
 Сохраните сюда результат вывода:
++--------------------+
+|               title|
++--------------------+
+|           Bad Girls|
+|            Catch-22|
+|The Catcher in th...|
+|The Mayor of Cast...|
+|The Wind in the W...|
++--------------------+
+
+== Physical Plan ==
+*(1) Scan ExistingRDD[title#191]

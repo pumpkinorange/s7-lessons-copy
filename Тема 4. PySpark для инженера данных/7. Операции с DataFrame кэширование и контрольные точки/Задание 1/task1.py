@@ -1,4 +1,3 @@
-# прекод для выполнения задания
 import pyspark
 from pyspark.sql import SparkSession
 
@@ -7,7 +6,6 @@ spark = SparkSession.builder \
                     .appName("Learning DataFrames") \
                     .getOrCreate()
 # данные первого датафрейма
-
 book = [('Harry Potter and the Goblet of Fire', 'J. K. Rowling', 322),
         ('Nineteen Eighty-Four', 'George Orwell', 382),
         ('Jane Eyre', 'Charlotte Brontë', 159),
@@ -17,32 +15,25 @@ book = [('Harry Potter and the Goblet of Fire', 'J. K. Rowling', 322),
         ('The Mayor of Casterbridge', 'Thomas Hardy',  300),
         ('Bad Girls', 'Jacqueline Wilson',  299)
 ]
-
 # данные второго датафрейма
 library = [
-        ( 322, "1"),
-        ( 250, "2" ),
+        (322, "1"),
+        (250, "2" ),
         (400, "2"),
         (159, "1"),
         (382, "2"),
         (322, "1")
 ]
-
 # названия атрибутов
 columns = ['title', 'author', 'book_id']
 columns_library = ['book_id', 'Library_id']
-
 # создаём датафреймы
 df = spark.createDataFrame(data=book, schema=columns)
-df_library  = spark.createDataFrame(data=library, schema=columns_library )
-
+df_library = spark.createDataFrame(data=library, schema=columns_library)
 # делаем join
-df_join = df.join(df_library,['book_id'], 'leftanti').select('title')
-df_cache= df_join.cache()
+df_join = df.join(df_library, on='book_id', how='inner')
 
-# сделайте контрольную точку на df_cache
-spark.sparkContext.setCheckpointDir("/user/s24268544/analytics/test_check")
-df_checkpoint = df_cache.checkpoint()
-
-df_checkpoint.show()
-df_checkpoint.explain()
+# напишите ваш код ниже
+df_join.cache()
+df_join.show()
+df_join.explain()
