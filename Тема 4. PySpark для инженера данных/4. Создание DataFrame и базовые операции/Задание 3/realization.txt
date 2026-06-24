@@ -1,15 +1,6 @@
-+--------------------+------------+
-|               event|  event_type|
-+--------------------+------------+
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-|{null, null, 2022...|subscription|
-+--------------------+------------+
-only showing top 10 rows
++------------+
+|channel_type|
++------------+
+|       river|
+|     channel|
++------------+
