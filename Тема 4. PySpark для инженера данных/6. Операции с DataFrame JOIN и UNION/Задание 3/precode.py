@@ -31,3 +31,6 @@ columns_library = ['book_id', 'Library_id']
 df = spark.createDataFrame(data=book, schema=columns)
 df_library  = spark.createDataFrame(data=library, schema=columns_library )
 # напишите ваш код ниже
+present_books = df.join(df_library, on='book_id', how='inner')
+
+present_books.select('title').show(truncate=False)
